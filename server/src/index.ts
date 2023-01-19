@@ -33,6 +33,7 @@ import { TeamResolver } from "./resolvers/TeamsResolver"
 
   apolloServer.applyMiddleware({
     app,
+    cors: { credentials: true, origin: "https://nextjs-sports-app.vercel.app" },
   })
 
   const PORT = process.env.PORT || 5000
