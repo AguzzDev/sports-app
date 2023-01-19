@@ -68,7 +68,7 @@ export const Sidemenu = () => {
                     i: number
                   ) => {
                     return (
-                      <Link href={`/team/${title}#Overview`}>
+                      <Link href={`/team/${title}#Overview`} key={i}>
                         <button
                           onClick={() => scrollMenu(i)}
                           className={`lg:h-full lg:w-full flex lg:flex-col py-4 hover:opacity-100 -translate-y-2 ${

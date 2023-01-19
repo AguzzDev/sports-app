@@ -9,7 +9,7 @@ export const Schedule = ({ data }:any) => {
       {router.pathname.includes("/league") ? (
         <div className="mx-2 md:w-3/4 md:mx-auto">
           {data.map(({ title, tableAllData }:any,i:number) => (
-            <TableSchedule i={i} title={title} data={tableAllData} mode="league" />
+            <TableSchedule key={i} i={i} title={title} data={tableAllData} mode="league" />
           ))}
         </div>
       ) : (

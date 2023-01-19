@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   const { setLeague } = useContext(QueryContext)
 
   useEffect(() => {
-    setLeague("")
+    return () => setLeague("")
   }, [])
 
   return (
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
             <div className="w-full bg-opacity-50 rounded-md h-60 lg:h-64 bg-gray2"></div>
             <div className="w-full col-span-2 bg-opacity-50 rounded-md h-60 lg:h-64 bg-gray2"></div>
           </section>
-          
+
           <footer className="flex items-end justify-center h-full py-4 text-sm">
             Pagina hecha por
             <span className="px-1 gradient1">

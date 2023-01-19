@@ -143,6 +143,7 @@ const WorldCupPrediction = () => {
       <div className="my-2 flex overflow-hidden border-2 border-gray2 shadow-xl rounded-tr-2xl rounded-bl-2xl h-[3.5vh] w-full">
         {value.map((v: string, i: number) => (
           <button
+            key={i}
             onClick={() =>
               dispatch({
                 type: "ADD",
@@ -424,8 +425,8 @@ const WorldCupPrediction = () => {
           <GroupElement
             title="Final"
             props="flex justify-between col-start-4 row-start-11 col-span-2"
-            children={
-              <>
+          >
+             <>
                 <button
                   className="flex items-center w-full"
                   onClick={() =>
@@ -481,8 +482,7 @@ const WorldCupPrediction = () => {
                   )}
                 </button>
               </>
-            }
-          />
+          </GroupElement>
 
           <GroupElement
             title="Campeon"

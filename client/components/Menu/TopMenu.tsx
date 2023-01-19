@@ -35,6 +35,7 @@ export const TopMenu = ({ title, goBack }: TopMenuProps) => {
               {title === hashPath && (
                 <Image
                   src="/svg/Arrow.svg"
+                  alt="arrow_svg"
                   height={15}
                   width={65}
                   objectFit="cover"

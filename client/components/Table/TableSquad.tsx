@@ -17,7 +17,7 @@ export const TableSquad = ({ data }:any) => {
         </div>
         {data.map(
           ({ position, number, name, marketValue, img, contract, age }:any) => (
-            <div className="flex grid items-center grid-cols-7 py-2 text-center border-b border-gray-100 border-opacity-20">
+            <div key={position} className="flex items-center grid-cols-7 py-2 text-center border-b border-gray-100 border-opacity-20">
               <p>{number}</p>
               <div className="flex items-center col-span-2 space-x-2">
                 <Image

@@ -73,6 +73,7 @@ export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
                       src={localTeamImg}
                       width={15}
                       height={20}
+                      alt="local_team_img"
                       objectFit="contain"
                     />
                   </div>
@@ -82,6 +83,7 @@ export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
                       src={visitantTeamImg}
                       width={15}
                       height={20}
+                      alt="visitant_team_img"
                       objectFit="contain"
                     />
                     <p className="my-auto ml-1 truncate sm:ml-5">
@@ -106,7 +108,7 @@ export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
           </div>
           {data.schedule.map(
             ({ date, game, locality, result, rival, rivalImg, time }: any) => (
-              <div className="grid grid-cols-6 py-2 text-sm text-center border-b border-gray-100 sm:text-base sm:grid-cols-8 border-opacity-20">
+              <div key={i} className="grid grid-cols-6 py-2 text-sm text-center border-b border-gray-100 sm:text-base sm:grid-cols-8 border-opacity-20">
                 <p className="text-sm">{game}</p>
                 <p className="hidden text-sm sm:flex">{date}</p>
                 <p className="hidden text-sm sm:flex">{time}</p>
@@ -120,6 +122,7 @@ export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
                         src={data.info.img}
                         width={15}
                         height={20}
+                        alt="info_img"
                         objectFit="contain"
                       />
                     </div>
@@ -129,6 +132,7 @@ export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
                         src={rivalImg}
                         width={15}
                         height={20}
+                        alt="rival_img"
                         objectFit="contain"
                       />
                       <p className="my-auto ml-3 truncate sm:ml-5">{rival}</p>
@@ -142,6 +146,7 @@ export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
                         src={rivalImg}
                         width={15}
                         height={20}
+                        alt="rival_img"
                         objectFit="contain"
                       />
                     </div>
@@ -151,6 +156,7 @@ export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
                         src={data.info.img}
                         width={15}
                         height={20}
+                        alt="info_img"
                         objectFit="contain"
                       />
                       <p className="my-auto ml-3 truncate sm:ml-5">

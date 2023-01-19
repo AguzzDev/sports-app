@@ -9,7 +9,6 @@ import { PlayerResolver } from "./resolvers/PlayerResolver"
 import { playerDef } from "./defs/PlayerDef"
 import { TeamDef } from "./defs/TeamDefs"
 import { TeamResolver } from "./resolvers/TeamsResolver"
-
 ;(async () => {
   dotenv.config()
   const app = express()
@@ -32,7 +31,9 @@ import { TeamResolver } from "./resolvers/TeamsResolver"
 
   apolloServer.applyMiddleware({ app, cors: { origin: "*" } })
 
-  app.listen(5000, () => {
+  const PORT = process.env.PORT || 5000
+
+  app.listen(PORT, () => {
     console.log("Server on")
   })
 })()

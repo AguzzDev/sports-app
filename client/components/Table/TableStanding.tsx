@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-export const TableStanding = ({ data }:any) => {
+export const TableStanding = ({ data }: any) => {
   return (
     <div className="border-2 border-gray-500">
       <div className="p-2">
@@ -15,18 +15,24 @@ export const TableStanding = ({ data }:any) => {
           <h1>Pts</h1>
         </div>
         {data.map(
-          ({
-            differenceGoal,
-            draw,
-            games,
-            img,
-            lose,
-            points,
-            position,
-            team,
-            win,
-          }:any) => (
-            <div className="grid grid-cols-12 py-1 text-center border-b border-gray-100 border-opacity-20">
+          (
+            {
+              differenceGoal,
+              draw,
+              games,
+              img,
+              lose,
+              points,
+              position,
+              team,
+              win,
+            }: any,
+            i: number
+          ) => (
+            <div
+              key={i}
+              className="grid grid-cols-12 py-1 text-center border-b border-gray-100 border-opacity-20"
+            >
               <p className="text-sm">{position}</p>
               <div className="flex col-span-5">
                 <Image

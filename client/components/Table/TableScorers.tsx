@@ -11,8 +11,8 @@ export const TableScorers = ({ data }:any) => {
         <h1>Goles</h1>
       </div>
       {data.topScorers.map(
-        ({ goals, img, player, position, positionIn, team }:any) => (
-          <div className="grid items-center grid-cols-7 py-2 text-center border-b border-gray-100 border-opacity-20">
+        ({ goals, img, player, position, positionIn, team }:any,i:number) => (
+          <div key={i} className="grid items-center grid-cols-7 py-2 text-center border-b border-gray-100 border-opacity-20">
             <p>{position}</p>
             <div className="flex items-center col-span-2 space-x-2">
               <Image
