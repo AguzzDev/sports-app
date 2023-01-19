@@ -8,7 +8,7 @@ import { QueryProvider } from "../context/QueryContext"
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
-    uri: "http://localhost:5000/graphql",
+    uri: "https://sports-app-backend-45py.onrender.com",
     cache: new InMemoryCache(),
   })
 
