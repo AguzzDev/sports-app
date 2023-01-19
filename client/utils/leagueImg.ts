@@ -1,4 +1,4 @@
-export const leagueImg = (league, data) => {
+export const leagueImg = (league:string, data:any) => {
   return league === "Bundesliga"
     ? data[0]
     : league === "Serie A"
