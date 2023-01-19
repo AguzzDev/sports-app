@@ -12,7 +12,7 @@ interface ScheduleProps {
 
 export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
   const allItems = data.length
-
+console.log("A")
   return (
     <>
       {mode === "league" ? (
@@ -107,7 +107,7 @@ export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
             <h1 className="col-span-2">Visitante</h1>
           </div>
           {data.schedule.map(
-            ({ date, game, locality, result, rival, rivalImg, time }: any) => (
+            ({ date, game, locality, result, rival, rivalImg, time }: any,i:number) => (
               <div key={i} className="grid grid-cols-6 py-2 text-sm text-center border-b border-gray-100 sm:text-base sm:grid-cols-8 border-opacity-20">
                 <p className="text-sm">{game}</p>
                 <p className="hidden text-sm sm:flex">{date}</p>
