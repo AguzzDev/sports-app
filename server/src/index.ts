@@ -12,7 +12,9 @@ import { TeamResolver } from "./resolvers/TeamsResolver"
 ;(async () => {
   dotenv.config()
   const app = express()
-  app.use(cors({ origin: "https://nextjs-sports-app.vercel.app" }))
+  app.use(
+    cors({ credentials: true, origin: "https://nextjs-sports-app.vercel.app" })
+  )
 
   app.get("/", (_, res) => res.send("API ON"))
   mongoose
@@ -29,11 +31,13 @@ import { TeamResolver } from "./resolvers/TeamsResolver"
   })
   await apolloServer.start()
 
-  apolloServer.applyMiddleware({ app, cors: { origin: "https://nextjs-sports-app.vercel.app" } })
+  apolloServer.applyMiddleware({
+    app,
+  })
 
   const PORT = process.env.PORT || 5000
 
   app.listen(PORT, () => {
-    console.log("Server on")
+    console.log(`Server on ${PORT}`)
   })
 })()
