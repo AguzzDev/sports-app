@@ -25,9 +25,9 @@ const League = () => {
           <>
             <TopMenu title={data?.getLeague?.title} goBack="/" />
             <section className="mx-3 sm:mx-7 my-5 sm:my-5">
-              {hashPath === "Overview" ? (
+              {hashPath === "Inicio" ? (
                 <Overview data={data.getLeague} />
-              ) : hashPath === "Schedule" ? (
+              ) : hashPath === "Calendario" ? (
                 <Schedule data={data.getLeague.calendar} />
               ) : (
                 <Standing data={data.getLeague.table} />

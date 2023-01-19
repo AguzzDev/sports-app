@@ -34,9 +34,9 @@ const Team = () => {
               goBack={`/league/${data.getTeam.info.league}#Overview`}
             />
             <section className="mx-3 my-5 sm:mx-7 sm:my-5">
-              {hashPath === "Overview" ? (
+              {hashPath === "Inicio" ? (
                 <Overview info={data.getTeam.info} titles={data.getTeam.titles} />
-              ) : hashPath === "Schedule" ? (
+              ) : hashPath === "Calendario" ? (
                 <Schedule data={data.getTeam} />
               ) : (
                 <Squad data={data.getTeam.squad} />
