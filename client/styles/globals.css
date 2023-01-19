@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "Font";
+  src: url("./font/PTSans-Regular.ttf");
+}
+.loading-animation {
+  animation: animationBall 1s infinite;
+}
+@keyframes animationBall {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(350deg);
+  }
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  body {
+    @apply bg-black1 text-white font-font h-screen;
+  }
+  h1 {
+    @apply font-semibold;
+  }
+  h2 {
+    @apply text-lg font-bold underline;
+  }
+  .gradient1 {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-[#9D51E1] via-[#9B63A4] to-[#B86C7D];
+  }
+  ::-webkit-scrollbar {
+    @apply w-[10px];
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-600 rounded-full;
+  }
+}
