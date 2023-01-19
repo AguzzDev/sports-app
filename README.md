@@ -1,13 +1,14 @@
 # **Sports App**
 
-## Search your favorite team!
+Search your favorite team!
 
-## Sports App its a page where you can find your favorite team, club or player. Find all statistics on this page:
--Overview
--Schedule
--Standing
--Squad
+Sports App its a page where you can find your favorite team, club or player. Find all statistics on this page:
 
-## There are also 2 minigames that you can enjoy
+- Overview
+- Schedule
+- Standing
+- Squad
 
-## *AguzzDev*
+There are also 2 minigames that you can enjoy
+
+*AguzzDev*
