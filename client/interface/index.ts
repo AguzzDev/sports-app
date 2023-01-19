@@ -31,7 +31,7 @@ export interface IconProps {
   color?: string
 }
 export interface LeagueMenuProps {
-  league: string | string[] | undefined
+  league: string 
   data: imgProps[]
 }
 interface imgProps {
