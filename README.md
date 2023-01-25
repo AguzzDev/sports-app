@@ -11,4 +11,4 @@ Sports App its a page where you can find your favorite team, club or player. Fin
 
 There are also 2 minigames that you can enjoy
 
-*AguzzDev*
+- *AguzzDev*
