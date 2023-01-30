@@ -42,7 +42,7 @@ export const LeagueMenu = ({ data, league }: LeagueMenuProps) => {
             <div key={title}>
               <Menu.Item>
                 <button>
-                  <Link href={`/league/${title}#Overview`}>
+                  <Link href={`/league/${title}#Inicio`}>
                     <Image src={img} alt={title} height={60} width={50} />
                   </Link>
                 </button>
