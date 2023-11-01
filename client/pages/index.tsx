@@ -1,17 +1,17 @@
-import type { NextPage } from "next"
-import Link from "next/link"
-import { useContext, useEffect } from "react"
-import { Layout2 } from "../components/Layout2"
-import { TopMenu } from "../components/Menu/TopMenu"
+import type { NextPage } from "next";
+import Link from "next/link";
+import { useContext, useEffect } from "react";
+import { Layout2 } from "../components/Layout2";
+import { TopMenu } from "../components/Menu/TopMenu";
 
-import { QueryContext } from "../context/QueryContext"
+import { QueryContext } from "../context/QueryContext";
 
 const Home: NextPage = () => {
-  const { setLeague } = useContext(QueryContext)
+  const { setLeague } = useContext(QueryContext);
 
   useEffect(() => {
-    return () => setLeague("")
-  }, [])
+    return () => setLeague("");
+  }, []);
 
   return (
     <>
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         </section>
       </Layout2>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

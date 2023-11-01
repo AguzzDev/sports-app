@@ -1,46 +1,48 @@
-import { useQuery } from "@apollo/client"
-import { HomeIcon } from "@heroicons/react/24/outline"
-import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useContext, useEffect } from "react"
+import { useQuery } from "@apollo/client";
+import { HomeIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 
-import { QueryContext } from "../../context/QueryContext"
-import { SidemenuData } from "../../data/SidemenuData"
-import { GET_LEAGUES } from "../../graphql/querys"
-import { LeagueMenu } from "../Dropdown/LeagueMenu"
-import { IconMD } from "../Icon"
-import { LoadingSidemenu } from "../Loading"
+import { QueryContext } from "../../context/QueryContext";
+import { SidemenuData } from "../../data/SidemenuData";
+import { GET_LEAGUES } from "../../graphql/querys";
+import { IconMD } from "../Icon";
+import { LoadingSidemenu } from "../Loading";
+import { LeagueMenu } from "../Dropdown/LeagueMenu";
 
 export const Sidemenu = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const { league } = useContext(QueryContext)
+  const { league } = useContext(QueryContext);
+
   const query: any =
     (router.pathname.includes("/league") && router.query.title) ||
-    (router.pathname.includes("/team") && league)
+    (router.pathname.includes("/team") && league);
 
-  const { loading, data } = useQuery(GET_LEAGUES)
-  const menuData = query ? SidemenuData[query] : null
+  const { loading, data } = useQuery(GET_LEAGUES);
+
+  const menuData = query ? SidemenuData[query] : null;
 
   const scrollMenu = (i: number) => {
-    localStorage.setItem("scrollNav", `${i}`)
-  }
+    localStorage.setItem("scrollNav", `${i}`);
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const element = localStorage.getItem("scrollNav")
+      const element = localStorage.getItem("scrollNav");
 
       if (element) {
         const to = document.querySelector(
           `#sidebar button:nth-child(${element})`
-        )
+        );
 
-        to?.scrollIntoView()
-        window.scroll({ top: 0 })
+        to?.scrollIntoView();
+        window.scroll({ top: 0 });
       }
     }
-  }, [loading])
+  }, [loading]);
 
   return (
     <section className="sticky top-0 flex flex-row items-center w-full mt-2 border-r-2 xl:flex-col xl:mt-0 xl:h-screen border-gray2">
@@ -92,7 +94,7 @@ export const Sidemenu = () => {
                           </div>
                         </button>
                       </Link>
-                    )
+                    );
                   }
                 )}
               </div>
@@ -101,5 +103,5 @@ export const Sidemenu = () => {
         </>
       )}
     </section>
-  )
-}
+  );
+};
