@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     uri:
       process.env.NODE_ENV === "development"
         ? "http://localhost:5000/graphql"
-        : "http://sports-elb-591374996.us-east-1.elb.amazonaws.com/graphql",
+        : "https://api.sports-app.agustin-ribotta.xyz/graphql",
     cache: new InMemoryCache(),
   });
 
