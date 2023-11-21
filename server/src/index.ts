@@ -15,7 +15,7 @@ import { TeamResolver } from "./resolvers/TeamsResolver";
   app.use(
     cors({
       credentials: true,
-      origin: ["http://localhost:3000", "https://nextjs-sports-app.vercel.app"],
+      origin: process.env.CORS_ORIGIN,
     })
   );
 
@@ -38,7 +38,7 @@ import { TeamResolver } from "./resolvers/TeamsResolver";
     app,
   });
 
-  const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT
 
   app.listen(PORT, () => {
     console.log(`Server on ${PORT}`);
