@@ -9,6 +9,8 @@ import { PlayerResolver } from "./resolvers/PlayerResolver";
 import { playerDef } from "./defs/PlayerDef";
 import { TeamDef } from "./defs/TeamDefs";
 import { TeamResolver } from "./resolvers/TeamsResolver";
+
+
 (async () => {
   dotenv.config();
   const app = express();

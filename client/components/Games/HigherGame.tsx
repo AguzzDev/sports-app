@@ -1,10 +1,10 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
-import { useRandomPlayer } from "../../graphql/hooks"
-import { PlayerProps } from "../../interface"
-import { addCeroToMarketValue } from "../../utils/addCeroToMarketValue"
-import { IconMD } from "../Icon"
+import { useRandomPlayer } from "graphql/hooks"
+import { addCeroToMarketValue } from "utils/addCeroToMarketValue"
+import { IconMD } from "components/Icon"
+import { PlayerInterface } from "interface"
 
 export const HigherGame = () => {
   const [counter, setCounter] = useState(0)
@@ -47,7 +47,7 @@ export const HigherGame = () => {
     <>
       {loading ? (
         <div className="grid h-full place-content-center">
-          <h1>loading</h1>
+          <h2>Loading...</h2>
         </div>
       ) : (
         <div className="relative">
@@ -65,7 +65,7 @@ export const HigherGame = () => {
                   position,
                   team,
                   teamImg,
-                }: PlayerProps,
+                }: PlayerInterface,
                 i: number
               ) => (
                 <>
@@ -78,13 +78,13 @@ export const HigherGame = () => {
                       objectFit="contain"
                     />
                     <div className="flex flex-col w-3/4 space-y-1">
-                      <h1>{name}</h1>
-                      <div className="flex space-x-2">
+                      <h1 className="gradient1">{name}</h1>
+                      <div className="flex space-x-2 items-center">
                         <Image
                           src={teamImg}
                           alt={`${team}-logo`}
-                          width={20}
-                          height={20}
+                          width={40}
+                          height={40}
                           objectFit="contain"
                         />
                         <p>{team}</p>
@@ -109,7 +109,7 @@ export const HigherGame = () => {
                         <>
                           <button
                             disabled={click && true}
-                            className="flex justify-center p-2 space-x-2 font-bold border-2 border-green-700"
+                            className="flex justify-center items-center p-2 space-x-2 font-bold border-2 border-green-700"
                             onClick={() => resolving("higher")}
                           >
                             <p>Higher</p>
@@ -120,7 +120,7 @@ export const HigherGame = () => {
                           </button>
                           <button
                             disabled={click && true}
-                            className="flex justify-center p-2 space-x-2 font-bold border-2 border-red-700"
+                            className="flex justify-center items-center p-2 space-x-2 font-bold border-2 border-red-700"
                             onClick={() => resolving("lower")}
                           >
                             <p>Lower</p>

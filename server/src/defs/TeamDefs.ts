@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express"
+import { gql } from "apollo-server-express";
 
 export const TeamDef = gql`
   type Team {
@@ -8,7 +8,7 @@ export const TeamDef = gql`
     schedule: [Schedule]
   }
   type Info {
-    title: String
+    name: String
     img: String
     league: String
     stadium: String
@@ -25,15 +25,10 @@ export const TeamDef = gql`
     name: String
     position: String
     img: String
-    age: String
-    nationality: [Nacionality]
-    contract: String
+    nationality: String
     marketValue: String
   }
-  type Nacionality{
-    img: String
-  }
-  type Schedule{
+  type Schedule {
     game: String
     date: String
     time: String
@@ -43,8 +38,8 @@ export const TeamDef = gql`
     result: String
   }
 
-  type Query{
-    getAllTeams(league:String): [Team]
-    getTeam(team:String): Team
+  type Query {
+    getTeams(league: String): [Team]
+    getTeam(team: String): Team
   }
-`
+`;

@@ -1,13 +1,20 @@
-import { childrenType } from "../interface";
-import { Sidemenu } from "./Menu/Sidemenu";
+import { ChildrenType } from "interface";
+import Head from "next/head";
 
-export const Layout = ({ children }: childrenType) => {
+export const Layout = ({
+  children,
+  title,
+}: {
+  children: ChildrenType;
+  title: string | undefined;
+}) => {
   return (
-    <main className="flex flex-col w-full xl:flex-row">
-      <section className="w-full xl:w-[10vw] h-[10vh]">
-        <Sidemenu />
-      </section>
-      <section className="w-full xl:w-[90vw]">{children}</section>
-    </main>
+    <>
+      <Head>
+        <title>{title} | Sports App</title>
+      </Head>
+
+      <>{children}</>
+    </>
   );
 };

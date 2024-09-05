@@ -1,26 +1,20 @@
-import { Disclosure } from "@headlessui/react"
-import { ChevronDownIcon } from "@heroicons/react/24/outline"
-import Image from "next/image"
-import { IconMD } from "../Icon"
+import { Disclosure } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import { IconMD } from "components/Icon";
+import { TableScheduleProps } from "interface";
 
-interface ScheduleProps {
-  data: any
-  title?: string
-  mode: string
-  i?: number
-}
+export const TableSchedule = ({ data, title, mode, i }: TableScheduleProps) => {
+  const allItems = data.length;
 
-export const TableSchedule = ({ data, title, mode, i }: ScheduleProps) => {
-  const allItems = data.length
-console.log("A")
   return (
     <>
       {mode === "league" ? (
         <Disclosure
           key={i}
-          defaultOpen={i! < 4}
+          defaultOpen={true}
           as="div"
-          className="my-5 border-2 border-gray-500"
+          className="border-2 border-gray-500"
         >
           <Disclosure.Button className="w-full p-2">
             {({ open }) => (
@@ -34,11 +28,11 @@ console.log("A")
           </Disclosure.Button>
           <Disclosure.Panel>
             <div className="grid grid-cols-6 text-sm text-center sm:grid-cols-7 sm:text-base">
-              <h1>Dato</h1>
-              <h1 className="hidden sm:flex">Horario</h1>
-              <h1 className="col-span-2">Local</h1>
-              <h1>Resultado</h1>
-              <h1 className="col-span-2">Visitante</h1>
+              <h3>Dato</h3>
+              <h3 className="hidden sm:flex">Horario</h3>
+              <h3 className="col-span-2">Local</h3>
+              <h3>Resultado</h3>
+              <h3 className="col-span-2">Visitante</h3>
             </div>
             {data.map(
               (
@@ -97,18 +91,26 @@ console.log("A")
         </Disclosure>
       ) : (
         <div className="border-2 border-gray-500">
-          <h1>{title}</h1>
+          <div className="p-2 border-b-2 border-gray-500">
+            <h2>Calendario</h2>
+          </div>
           <div className="grid grid-cols-8 py-1 text-center">
-            <h1>Jornada</h1>
-            <h1>Fecha</h1>
-            <h1>Horario</h1>
-            <h1 className="col-span-2">Local</h1>
-            <h1>Resultado</h1>
-            <h1 className="col-span-2">Visitante</h1>
+            <h3>Jornada</h3>
+            <h3>Fecha</h3>
+            <h3>Horario</h3>
+            <h3 className="col-span-2">Local</h3>
+            <h3>Resultado</h3>
+            <h3 className="col-span-2">Visitante</h3>
           </div>
           {data.schedule.map(
-            ({ date, game, locality, result, rival, rivalImg, time }: any,i:number) => (
-              <div key={i} className="grid grid-cols-6 py-2 text-sm text-center border-b border-gray-100 sm:text-base sm:grid-cols-8 border-opacity-20">
+            (
+              { date, game, locality, result, rival, rivalImg, time }: any,
+              i: number
+            ) => (
+              <div
+                key={i}
+                className="grid grid-cols-6 py-2 text-sm text-center border-b border-gray-100 sm:text-base sm:grid-cols-8 border-opacity-20"
+              >
                 <p className="text-sm">{game}</p>
                 <p className="hidden text-sm sm:flex">{date}</p>
                 <p className="hidden text-sm sm:flex">{time}</p>
@@ -116,7 +118,7 @@ console.log("A")
                   <>
                     <div className="flex justify-end col-span-2">
                       <p className="my-auto mr-3 truncate sm:mr-5">
-                        {data.info.title}
+                        {data.info.name}
                       </p>
                       <Image
                         src={data.info.img}
@@ -160,7 +162,7 @@ console.log("A")
                         objectFit="contain"
                       />
                       <p className="my-auto ml-3 truncate sm:ml-5">
-                        {data.info.title}
+                        {data.info.name}
                       </p>
                     </div>
                   </>
@@ -171,5 +173,5 @@ console.log("A")
         </div>
       )}
     </>
-  )
-}
+  );
+};

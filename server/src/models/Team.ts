@@ -1,8 +1,8 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-const PlayerSchema = new mongoose.Schema({
+const TeamSchema = new mongoose.Schema({
   info: {
-    title: { type: String },
+    name: { type: String },
     img: { type: String },
     league: { type: String },
     stadium: { type: String },
@@ -16,18 +16,7 @@ const PlayerSchema = new mongoose.Schema({
       years: { type: String },
     },
   ],
-  squad: [
-    {
-      number: { type: String },
-      name: { type: String },
-      position: { type: String },
-      img: { type: String },
-      age: { type: String },
-      nationality: [{ type: Array }],
-      contract: { type: String },
-      marketValue: { type: String },
-    },
-  ],
+  squad: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
   schedule: [
     {
       game: { type: String },
@@ -39,6 +28,6 @@ const PlayerSchema = new mongoose.Schema({
       result: { type: String },
     },
   ],
-})
+});
 
-export default mongoose.model("Team", PlayerSchema)
+export default mongoose.model("Team", TeamSchema);

@@ -1,16 +1,23 @@
-import { gql } from "apollo-server-express"
+import { gql } from "apollo-server-express";
 
 export const playerDef = gql`
   type Player {
     name: String
+    number: String
     img: String
+    birth: String
+    placeToBirth: String
+    nationality: String
+    height: String
+    position: String
+    nationalTeam: String
+    matches: String
+    marketValue: String
     team: String
     teamImg: String
     league: String
-    position: String
     stats: [Stats]
     info: [Info]
-    marketValue: String
     titles: [Titles]
   }
   type Stats {
@@ -27,10 +34,10 @@ export const playerDef = gql`
     teamAndYear: String
   }
 
-  type Query{
+  type Query {
     getRandomPlayer: [Player]
-    getOnePlayer(player:String): Player
-    getPlayersForPosition(player:String,position:String) : [Player]
-    getPlayersForLeague(player:String,league:String) : [Player]
+    getOnePlayer(player: String): Player
+    getPlayersForPosition(player: String, position: String): [Player]
+    getPlayersForLeague(player: String, league: String): [Player]
   }
-`
+`;

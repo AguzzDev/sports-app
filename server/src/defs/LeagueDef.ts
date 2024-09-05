@@ -1,22 +1,16 @@
-import { gql } from "apollo-server-express"
+import { gql } from "apollo-server-express";
 
 export const LeagueDef = gql`
   type League {
-    title: String
+    name: String
     img: String
-    ranking: String
-    moreCups: String
-    actuallyWinner: String
+    numPlayer: String
+    numPlayerForeign: String
+    marketValue: String
     playerMoreExpensive: String
-    leagueCode: String
     topScorers: [Scorers]
     table: [Table]
     calendar: [Calendar]
-    logos: [Logos]
-  }
-  type Logos{
-    title: String
-    img: String
   }
   type Scorers {
     position: String
@@ -52,7 +46,7 @@ export const LeagueDef = gql`
   }
 
   type Query {
-    getAllLeagues: [League]
-    getLeague(league:String): League
+    getLeagues: [League]
+    getLeague(league: String): League
   }
-`
+`;

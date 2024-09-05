@@ -1,26 +1,26 @@
-import Image from "next/image"
-import { Layout2 } from "../../components/Layout2"
-import { TopMenu } from "../../components/Menu/TopMenu"
-import { useGroups } from "../../context/GroupsReducer"
-import { allNations } from "../../data/allNations"
-import { dictionaryGroups } from "../../utils/dictionaryGroups"
+import Image from "next/image";
+import { Layout } from "components/Layout";
+import { TopMenu } from "components/Menu/TopMenu";
+import { useGroups } from "context/GroupsReducer";
+import { allNations } from "data/allNations";
+import { dictionaryGroups } from "utils/dictionaryGroups";
 
 const WorldCupPrediction = () => {
-  const { dispatch, state } = useGroups()
+  const { dispatch, state } = useGroups();
 
   const handleClick = async (name: string, img: string, codeC: number) => {
     const top1 =
       Object.keys(state).includes(`${dictionaryGroups[codeC]}1`) &&
-      state[`${dictionaryGroups[codeC]}1`].name === name
+      state[`${dictionaryGroups[codeC]}1`].name === name;
     const top2 =
       Object.keys(state).includes(`${dictionaryGroups[codeC]}2`) &&
-      state[`${dictionaryGroups[codeC]}2`].name === name
+      state[`${dictionaryGroups[codeC]}2`].name === name;
 
     if (top1) {
       dispatch({
         type: "REMOVE",
         payload: { code: `${dictionaryGroups[codeC]}1` },
-      })
+      });
       dispatch({
         type: "ADD",
         payload: {
@@ -30,12 +30,12 @@ const WorldCupPrediction = () => {
             ? `${dictionaryGroups[codeC]}2`
             : `${dictionaryGroups[codeC]}1`,
         },
-      })
+      });
     } else if (top2) {
       dispatch({
         type: "REMOVE",
         payload: { code: `${dictionaryGroups[codeC]}2` },
-      })
+      });
 
       dispatch({
         type: "ADD",
@@ -46,11 +46,11 @@ const WorldCupPrediction = () => {
             ? `${dictionaryGroups[codeC]}1`
             : `${dictionaryGroups[codeC]}2`,
         },
-      })
+      });
     } else {
       const includes =
         Object.keys(state).includes(`${dictionaryGroups[codeC]}1`) &&
-        state[`${dictionaryGroups[codeC]}1`].name
+        state[`${dictionaryGroups[codeC]}1`].name;
 
       dispatch({
         type: "ADD",
@@ -61,9 +61,9 @@ const WorldCupPrediction = () => {
             ? `${dictionaryGroups[codeC]}2`
             : `${dictionaryGroups[codeC]}1`,
         },
-      })
+      });
     }
-  }
+  };
   const GroupFases = () => {
     return (
       <>
@@ -83,8 +83,8 @@ const WorldCupPrediction = () => {
           <h1 className="absolute bottom-3 font-bold">Campeon Mundial 2022</h1>
         </div>
       </>
-    )
-  }
+    );
+  };
   const GroupElement = ({
     props,
     value,
@@ -92,11 +92,11 @@ const WorldCupPrediction = () => {
     title,
     children,
   }: {
-    value?: string
-    title: string
-    props: string
-    code?: string
-    children?: JSX.Element
+    value?: string;
+    title: string;
+    props: string;
+    code?: string;
+    children?: JSX.Element;
   }) => {
     return (
       <div
@@ -136,8 +136,8 @@ const WorldCupPrediction = () => {
           </>
         )}
       </div>
-    )
-  }
+    );
+  };
   const GroupElementLaptop = ({ code, value }: any) => {
     return (
       <div className="my-2 flex overflow-hidden border-2 border-gray2 shadow-xl rounded-tr-2xl rounded-bl-2xl h-[3.5vh] w-full">
@@ -176,10 +176,10 @@ const WorldCupPrediction = () => {
           </button>
         ))}
       </div>
-    )
-  }
+    );
+  };
   return (
-    <Layout2 title="World Cup Prediction">
+    <Layout title="World Cup Prediction">
       <TopMenu title="World Cup Prediction" />
 
       <section>
@@ -227,11 +227,11 @@ const WorldCupPrediction = () => {
                     dispatch({
                       type: "REMOVE",
                       payload: { code: `${dictionaryGroups[i + 1]}1` },
-                    })
+                    });
                     dispatch({
                       type: "REMOVE",
                       payload: { code: `${dictionaryGroups[i + 1]}2` },
-                    })
+                    });
                   }}
                 >
                   Limpiar
@@ -426,62 +426,62 @@ const WorldCupPrediction = () => {
             title="Final"
             props="flex justify-between col-start-4 row-start-11 col-span-2"
           >
-             <>
-                <button
-                  className="flex items-center w-full"
-                  onClick={() =>
-                    dispatch({
-                      type: "ADD",
-                      payload: {
-                        name: state["S1"].name,
-                        img: state["S1"]?.img,
-                        code: "W",
-                      },
-                    })
-                  }
-                >
-                  {state["S1"]?.img && (
-                    <Image
-                      src={state["S1"]?.img}
-                      loading="lazy"
-                      height={40}
-                      width={40}
-                      objectFit="contain"
-                      className="transform -translate-x-1"
-                    />
-                  )}
-                  <h1 className="font-bold px-4">
-                    {state["S1"]?.name || "Final 1"}
-                  </h1>
-                </button>
-                <button
-                  className="flex items-center justify-end w-full"
-                  onClick={() =>
-                    dispatch({
-                      type: "ADD",
-                      payload: {
-                        name: state["S2"].name,
-                        img: state["S2"].img,
-                        code: "W",
-                      },
-                    })
-                  }
-                >
-                  <h1 className="font-bold px-4">
-                    {state["S2"]?.name || "Final 2"}
-                  </h1>
-                  {state["S2"]?.img && (
-                    <Image
-                      src={state["S2"]?.img}
-                      loading="lazy"
-                      height={40}
-                      width={40}
-                      objectFit="contain"
-                      className="transform translate-x-1"
-                    />
-                  )}
-                </button>
-              </>
+            <>
+              <button
+                className="flex items-center w-full"
+                onClick={() =>
+                  dispatch({
+                    type: "ADD",
+                    payload: {
+                      name: state["S1"].name,
+                      img: state["S1"]?.img,
+                      code: "W",
+                    },
+                  })
+                }
+              >
+                {state["S1"]?.img && (
+                  <Image
+                    src={state["S1"]?.img}
+                    loading="lazy"
+                    height={40}
+                    width={40}
+                    objectFit="contain"
+                    className="transform -translate-x-1"
+                  />
+                )}
+                <h1 className="font-bold px-4">
+                  {state["S1"]?.name || "Final 1"}
+                </h1>
+              </button>
+              <button
+                className="flex items-center justify-end w-full"
+                onClick={() =>
+                  dispatch({
+                    type: "ADD",
+                    payload: {
+                      name: state["S2"].name,
+                      img: state["S2"].img,
+                      code: "W",
+                    },
+                  })
+                }
+              >
+                <h1 className="font-bold px-4">
+                  {state["S2"]?.name || "Final 2"}
+                </h1>
+                {state["S2"]?.img && (
+                  <Image
+                    src={state["S2"]?.img}
+                    loading="lazy"
+                    height={40}
+                    width={40}
+                    objectFit="contain"
+                    className="transform translate-x-1"
+                  />
+                )}
+              </button>
+            </>
           </GroupElement>
 
           <GroupElement
@@ -554,19 +554,19 @@ const WorldCupPrediction = () => {
             onClick={() => {
               dispatch({
                 type: "REMOVE_ALL",
-              })
+              });
 
               setTimeout(() => {
-                window.scroll({ top: 0, behavior: "smooth" })
-              }, 500)
+                window.scroll({ top: 0, behavior: "smooth" });
+              }, 500);
             }}
           >
             Reiniciar
           </button>
         </div>
       </section>
-    </Layout2>
-  )
-}
+    </Layout>
+  );
+};
 
-export default WorldCupPrediction
+export default WorldCupPrediction;

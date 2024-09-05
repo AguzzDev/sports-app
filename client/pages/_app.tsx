@@ -1,10 +1,8 @@
-import "../styles/globals.css";
-import "../styles/scroll.css";
+import "styles/globals.css";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
-
-import { Layout } from "../components/Layout";
-import { QueryProvider } from "../context/QueryContext";
+import { QueryProvider } from "context/QueryContext";
+import { Sidemenu } from "components/Menu/Sidemenu";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -18,9 +16,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <QueryProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <main className="flex flex-col w-full xl:flex-row">
+          <Sidemenu />
+
+          <section className="w-full xl:w-[90vw]">
+            <Component {...pageProps} />
+          </section>
+        </main>
       </QueryProvider>
     </ApolloProvider>
   );

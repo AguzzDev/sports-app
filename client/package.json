@@ -12,7 +12,7 @@
     "@headlessui/react": "1.7.4",
     "@heroicons/react": "2.0.11",
     "flatted": "3.2.7",
-    "framer-motion": "7.5.3",
+    "framer-motion": "^7.5.3",
     "graphql": "16.6.0",
     "next": "12.3.1",
     "react": "18.2.0",

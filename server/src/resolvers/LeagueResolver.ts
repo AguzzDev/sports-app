@@ -1,13 +1,13 @@
-import League from "../../models/League";
+import League from "../models/League";
 
 export const LeagueResolver = {
   Query: {
-    getAllLeagues: async () => {
+    getLeagues: async () => {
       const results = await League.find();
       return results;
     },
     getLeague: async (_: void, args: { league: string }) => {
-      const result = await League.findOne({ title: args.league });
+      const result = await League.findOne({ name: args.league });
       return result;
     },
   },

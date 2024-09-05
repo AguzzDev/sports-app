@@ -1,26 +1,39 @@
-import { useRouter } from "next/router"
-import { TableSchedule } from "../Table/TableSchedule"
+import { useRouter } from "next/router";
+import { TableSchedule } from "components/Table/TableSchedule";
+import { LeagueInterface, ScheduleProps } from "interface";
+import { hasProperty } from "utils/hasProperty";
 
-export const Schedule = ({ data }:any) => {
-  const router = useRouter()
+export const Schedule = ({ data }: { data: ScheduleProps }) => {
+  const router = useRouter();
+
+  const isLeagueInterface = (
+    data: ScheduleProps
+  ): data is LeagueInterface["calendar"] => {
+    return hasProperty(data, "tableAllData");
+  };
+
+  const leagueData = isLeagueInterface(data) ? data : undefined;
+  const teamData = !isLeagueInterface(data) ? data : undefined;
 
   return (
     <section>
       {router.pathname.includes("/league") ? (
-        <div className="mx-2 md:w-3/4 md:mx-auto">
-          {data.map(({ title, tableAllData }:any,i:number) => (
-            <TableSchedule key={i} i={i} title={title} data={tableAllData} mode="league" />
+        <div className="grid lg:grid-cols-2 gap-5">
+          {leagueData!.map(({ title, tableAllData }, i: number) => (
+            <TableSchedule
+              key={i}
+              i={i}
+              title={title}
+              data={tableAllData}
+              mode="league"
+            />
           ))}
         </div>
       ) : (
         <div className="mx-2 md:w-3/4 md:mx-auto">
-          {data.schedule.length > 0 ? (
-            <TableSchedule data={data} mode="team" />
-          ) : (
-            <h3>La pelota descansa</h3>
-          )}
+          <TableSchedule data={teamData} />
         </div>
       )}
     </section>
-  )
-}
+  );
+};

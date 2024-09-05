@@ -1,18 +1,19 @@
-import Image from "next/image"
+import { LeagueInterface } from "interface";
+import Image from "next/image";
 
-export const TableStanding = ({ data }: any) => {
+export const TableStanding = ({ data }: { data: LeagueInterface["table"] }) => {
   return (
     <div className="border-2 border-gray-500">
       <div className="p-2">
         <div className="grid grid-cols-12 py-1 text-center">
-          <h1>Posicion</h1>
-          <h1 className="col-span-5">Club</h1>
-          <h1>PJ</h1>
-          <h1>G</h1>
-          <h1>E</h1>
-          <h1>P</h1>
-          <h1>GF</h1>
-          <h1>Pts</h1>
+          <h3>Posicion</h3>
+          <h3 className="col-span-5">Club</h3>
+          <h3>PJ</h3>
+          <h3>G</h3>
+          <h3>E</h3>
+          <h3>P</h3>
+          <h3>GF</h3>
+          <h3>Pts</h3>
         </div>
         {data.map(
           (
@@ -26,7 +27,7 @@ export const TableStanding = ({ data }: any) => {
               position,
               team,
               win,
-            }: any,
+            },
             i: number
           ) => (
             <div
@@ -55,5 +56,5 @@ export const TableStanding = ({ data }: any) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};

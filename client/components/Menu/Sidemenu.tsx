@@ -1,104 +1,114 @@
-import { useQuery } from "@apollo/client";
 import { HomeIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
-
-import { QueryContext } from "../../context/QueryContext";
-import { SidemenuData } from "../../data/SidemenuData";
-import { GET_LEAGUES } from "../../graphql/querys";
-import { IconMD } from "../Icon";
-import { LoadingSidemenu } from "../Loading";
-import { LeagueMenu } from "../Dropdown/LeagueMenu";
+import { useEffect, useState } from "react";
+import { IconMD } from "components/Icon";
+import { LoadingSidemenu } from "components/Loading";
+import { SidebarItemsProps } from "interface";
+import { useLeague } from "context/QueryContext";
+import { SidemenuData } from "data/SidemenuData";
 
 export const Sidemenu = () => {
+  const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
-  const { league } = useContext(QueryContext);
+  const { league, saveLeague } = useLeague();
+  const query: any = router.pathname === "/" || router.pathname === "/team";
+  const goto = query ? "league" : "team";
 
-  const query: any =
-    (router.pathname.includes("/league") && router.query.title) ||
-    (router.pathname.includes("/team") && league);
-
-  const { loading, data } = useQuery(GET_LEAGUES);
-
-  const menuData = query ? SidemenuData[query] : null;
-
-  const scrollMenu = (i: number) => {
+  const data = query ? SidemenuData.logos : SidemenuData.leagues[league!];
+  const scrollMenu = (i: number, name: string) => {
     localStorage.setItem("scrollNav", `${i}`);
+    if (router.pathname === "/") {
+      saveLeague(name);
+    }
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const element = localStorage.getItem("scrollNav");
+    if (loading || router.pathname === "/" || router.pathname.includes("/game"))
+      return;
 
-      if (element) {
-        const to = document.querySelector(
-          `#sidebar button:nth-child(${element})`
-        );
+    const element = localStorage.getItem("scrollNav");
 
-        to?.scrollIntoView();
-        window.scroll({ top: 0 });
-      }
-    }
+    const to = document.querySelector(
+      `#sidebar button[data-index="${element}"]`
+    );
+
+    to!.scrollIntoView({
+      block: "start",
+      inline: "start",
+    });
   }, [loading]);
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    interval = setTimeout(() => {
+      setLoading(false);
+      clearInterval(interval);
+    }, 1500);
+
+    return () => {
+      clearInterval(interval);
+      setLoading(true);
+    };
+  }, [router]);
+
   return (
-    <section className="sticky top-0 flex flex-row items-center w-full mt-2 border-r-2 xl:flex-col xl:mt-0 xl:h-screen border-gray2">
+    <section className="sticky inset-0 w-full xl:w-[10vw] min-h-full z-[9999] flex flex-row items-center h-full border-gray2 pt-4 px-5 bg-black1 xl:flex-col xl:h-screen xl:border-r-2 xl:px-0">
       {loading ? (
-        <LoadingSidemenu path={router.pathname} />
+        <LoadingSidemenu />
       ) : (
         <>
-          {router.pathname.includes("/game") ? (
-            <button className="py-2 mx-auto">
-              <Link href="/">
-                <div className="flex items-center justify-center w-20 p-2 bg-gray3 h-14 rounded-xl">
-                  <IconMD Icon={HomeIcon} />
-                </div>
-              </Link>
-            </button>
-          ) : (
-            <>
-              <div className="flex justify-center ml-3 sm:ml-7 xl:ml-0 xl:my-0 sm:py-2 sm:px-0 xl:pr-0 xl:w-full">
-                <LeagueMenu league={query} data={data.getAllLeagues} />
+          <button className="xl:w-3/4 mx-auto">
+            <Link href="/">
+              <div className="flex items-center justify-center p-3 bg-gray3 rounded-xl mb-5">
+                <IconMD Icon={HomeIcon} />
               </div>
-              <div className="flex flex-row w-full mt-2 space-x-5 overflow-x-hidden overflow-y-hidden cursor-pointer sm:space-x-0 xl:flex-col xl:overflow-y-scroll">
-                {menuData?.map(
-                  (
-                    { img, title }: { img: string; title: string },
-                    i: number
-                  ) => {
-                    return (
-                      <Link href={`/team/${title}#Overview`} key={i}>
-                        <button
-                          onClick={() => scrollMenu(i)}
-                          className={`lg:h-full lg:w-full flex lg:flex-col py-4 hover:opacity-100 -translate-y-2 ${
-                            router.query.title === title
-                              ? "opacity-100"
-                              : "opacity-40"
-                          }`}
+            </Link>
+          </button>
+
+          {!router.pathname.includes("/game") && (
+            <section
+              id="sidebar"
+              className="flex flex-row w-full h-full overflow-x-auto overflow-y-hidden xl:overflow-x-hidden xl:overflow-y-scroll cursor-pointer xl:flex-col ml-5 mt-1 lg:mt-4 xl:ml-0 xl:mt-5"
+            >
+              {data?.map(({ img, name }: SidebarItemsProps, i: number) => {
+                return (
+                  <Link href={`/${goto}/${name}#Overview`} key={i}>
+                    <button
+                      data-index={i}
+                      onClick={() => scrollMenu(i, name)}
+                      className={`relative mx-3 xl:mx-0 my-3 flex lg:flex-col hover:opacity-100 -translate-y-2 ${
+                        name === router.query.title || router.pathname === "/"
+                          ? "opacity-100"
+                          : "opacity-40"
+                      }`}
+                    >
+                      <div className="flex lg:flex-col items-center w-full h-full">
+                        <Image
+                          key={name}
+                          src={img}
+                          alt={name}
+                          width={80}
+                          height={80}
+                          objectFit="contain"
+                        />
+
+                        <p
+                          className={`${
+                            name === router.query.title && "gradient1"
+                          } text-left w-32 lg:text-center text-sm font-extrabold`}
                         >
-                          <div className="xl:mx-3 min-w-[13vw] xl:min-w-0 flex lg:flex-col items-center">
-                            <Image
-                              key={title}
-                              src={img}
-                              alt={title}
-                              width={66}
-                              height={66}
-                              objectFit="contain"
-                            />
-                            <p className="hidden w-32 text-xs truncate lg:block xl:text-sm">
-                              {title}
-                            </p>
-                          </div>
-                        </button>
-                      </Link>
-                    );
-                  }
-                )}
-              </div>
-            </>
+                          {name}
+                        </p>
+                      </div>
+                    </button>
+                  </Link>
+                );
+              })}
+            </section>
           )}
         </>
       )}

@@ -1,10 +1,10 @@
-import { HigherGame } from "../../components/Games/HigherGame"
-import { Layout2 } from "../../components/Layout2"
-import { TopMenu } from "../../components/Menu/TopMenu"
+import { HigherGame } from "components/Games/HigherGame";
+import { Layout } from "components/Layout";
+import { TopMenu } from "components/Menu/TopMenu";
 
 const HigherOrLower = () => {
   return (
-    <Layout2 title="Higher Or Lower">
+    <Layout title="Higher Or Lower">
       <TopMenu title="Higher Or Lower" />
 
       <div className="grid place-content-center h-5/6">
@@ -12,8 +12,8 @@ const HigherOrLower = () => {
           <HigherGame />
         </div>
       </div>
-    </Layout2>
-  )
-}
+    </Layout>
+  );
+};
 
-export default HigherOrLower
+export default HigherOrLower;

@@ -1,11 +1,11 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const LeagueSchema = new mongoose.Schema({
-  title: { type: String },
+  name: { type: String },
   img: { type: String },
-  ranking: { type: String },
-  moreCups: { type: String },
-  actuallyWinner: { type: String },
+  numPlayer: { type: String },
+  numPlayerForeign: { type: String },
+  marketValue: { type: String },
   playerMoreExpensive: { type: String },
   logos: [
     {
@@ -53,6 +53,6 @@ const LeagueSchema = new mongoose.Schema({
       ],
     },
   ],
-})
+});
 
-export default mongoose.model("League", LeagueSchema)
+export default mongoose.model("League", LeagueSchema);
