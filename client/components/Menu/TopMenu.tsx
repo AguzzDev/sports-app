@@ -36,7 +36,7 @@ export const TopMenu = ({ title, goBack }: TopMenuProps) => {
     );
   };
   return (
-    <section className="sticky top-[6.45rem] lg:top-[11.6rem] xl:top-0 bg-black1 flex flex-col md:flex-row py-5 border-b-2 border-gray2 z-[9999]">
+    <section className="sticky top-[6.3rem] lg:top-[11.6rem] xl:top-0 bg-black1 flex flex-col md:flex-row py-5 border-b-2 border-gray2 z-[9999]">
       {!router.pathname.includes("/game") && (
         <div className="flex items-center w-full md:w-2/4 pl-3 space-x-2 md:pl-5 mb-2 md:mb-0">
           {goBack && (
