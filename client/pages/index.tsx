@@ -143,12 +143,13 @@ const Home: NextPage = () => {
     setShow((prevId) => (prevId === id ? null : id));
   };
 
-  const { data, loading } = useQuery(GET_MATCHES);
+  const { data, loading, error } = useQuery(GET_MATCHES);
+
   const { data: subData, loading: subLoading } =
     useSubscription(GET_MATCHES_SUB);
 
   useEffect(() => {
-    if (loading) return;
+    if (loading || error) return;
 
     const matches = subData?.getMatches || data?.getMatches;
 

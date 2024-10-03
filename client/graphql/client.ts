@@ -9,7 +9,7 @@ const wsLink =
         createClient({
           url:
             process.env.NODE_ENV === "production"
-              ? "wss://api.sports-app.agustin-ribotta.xyz/graphql"
+              ? "ws://api.sports-app.agustin-ribotta.xyz/graphql"
               : "ws://localhost:4000/graphql",
         })
       )
