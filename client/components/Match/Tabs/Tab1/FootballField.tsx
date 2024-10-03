@@ -30,7 +30,7 @@ const Player: React.FC<PlayerLineupProps> = ({ data, type }) => {
           <div
             className={`${
               type == "home" ? "bg-black border-white" : "bg-white border-black"
-            } flex justify-center items-center w-5 h-5 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full border-2`}
+            } flex justify-center items-center w-7 h-7 lg:w-10 lg:h-10 rounded-full border-2`}
           >
             <p
               className={`${
@@ -41,7 +41,9 @@ const Player: React.FC<PlayerLineupProps> = ({ data, type }) => {
             </p>
           </div>
 
-          <p className="text-xs md:text-base text-center h-5 md:h-10 overflow-ellipsis">{data.name}</p>
+          <p className="text-xs sm:text-sm text-center h-5 md:h-10 overflow-ellipsis">
+            {data.name}
+          </p>
         </>
       ) : (
         <div className="relative bg-black w-10 h-10 rounded-full overflow-hidden"></div>
@@ -90,13 +92,11 @@ const Lineup: React.FC<LineupProps> = ({ lineup, type, players }) => {
           key={`position-${index}`}
           className="flex justify-center w-full h-1/4 sm:h-full sm:w-1/4"
         >
-          <div
-            className={`grid grid-cols-${numPlayers} sm:grid-cols-1 sm:grid-rows-${numPlayers} w-full h-full`}
-          >
+          <div className="flex sm:flex-col justify-center w-full">
             {Array.from({ length: numPlayers }).map((_, playerIndex) => (
               <div
                 key={playerIndex}
-                className="flex items-center justify-center"
+                className="flex items-center justify-center w-1/4 sm:h-1/4 sm:w-full"
               >
                 <Player
                   type={type}
