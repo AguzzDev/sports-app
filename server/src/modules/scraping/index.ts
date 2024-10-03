@@ -15,7 +15,7 @@ const scrapper = async () => {
       try {
         const today = toZonedTime(new Date(), "America/Argentina/Buenos_Aires");
         const browser = await puppeteer.launch({
-          headless: false,
+          headless: true,
           timeout: 0,
         });
 
