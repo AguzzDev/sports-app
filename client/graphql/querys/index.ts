@@ -1,5 +1,14 @@
 import { gql } from "@apollo/client";
+import { MATCH_FRAGMENT } from "graphql/fragments/matches";
 
+export const GET_MATCHES = gql`
+  query GetMatches {
+    getMatches {
+      ...MatchFragment
+    }
+  }
+  ${MATCH_FRAGMENT}
+`;
 export const GET_LEAGUE = gql`
   query GetLeague($league: String) {
     getLeague(league: $league) {

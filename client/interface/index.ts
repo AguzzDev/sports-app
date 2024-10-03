@@ -1,8 +1,48 @@
 import { ReactNode } from "react";
+import { statusMatchesDict } from "utils/dict";
 
 export type ChildrenType = ReactNode | JSX.Element;
 
+export type StatusKeysType = keyof typeof statusMatchesDict;
+
 //interfaces
+export interface MatchInterface {
+  eventId: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeTeamImg: string;
+  awayTeamImg: string;
+  result: string;
+  league: string;
+  status: string;
+  info: string;
+  lineup: Lineup;
+  statistics: Statistics[];
+}
+interface Statistics {
+  text: string;
+  homeTeam: InfoStatistics;
+  awayTeam: InfoStatistics;
+}
+interface InfoStatistics {
+  quantity: string;
+  percentage: string;
+}
+interface Lineup {
+  homeTeam: LineupItem;
+  awayTeam: LineupItem;
+}
+interface LineupItem {
+  lineup: string;
+  titular: PlayerLineup[];
+  substitutes: PlayerLineup[];
+}
+export interface PlayerLineup {
+  name: string;
+  image: string;
+  number: string;
+  pos: string;
+}
 export interface LeagueInterface {
   name: string;
   img: string;
@@ -93,6 +133,59 @@ export interface TeamInterface {
 }
 
 //props
+export interface HeaderLineupProps {
+  className: string;
+  data: { [key: string]: string };
+}
+export interface SubstitutesProps {
+  [key: string]: LineupItem["substitutes"];
+}
+export type MatchDetailsPropsWithoutStatistics = Omit<
+  MatchDetailsProps,
+  "statistics"
+>;
+export interface LineupProps {
+  type: string;
+  lineup: string;
+  players: PlayerLineup[];
+}
+export interface PlayerLineupProps {
+  type: string;
+  data?: PlayerLineup | null;
+}
+export interface MatchDetailsProps {
+  homeTeam: MatchDetailsItemsProps;
+  awayTeam: MatchDetailsItemsProps;
+  statistics: MatchInterface["statistics"];
+}
+interface MatchDetailsItemsProps extends LineupItem {
+  name: string;
+  image: string;
+}
+export interface ContainerProps {
+  children: ReactNode | string | number;
+  className?: string;
+  title?: string;
+}
+export type ScheduleItemProps = Partial<TableScheduleProps["data"]>;
+export interface FooterItemProps {
+  [key: string]: string;
+}
+export interface ListMatchesProps {
+  matches: MatchInterface[];
+  show: string | null;
+  handleClick: (id: string) => void;
+}
+export interface ListStatusMatchesProps extends ListMatchesProps {
+  status: string;
+}
+export interface TableProps {
+  title?: string;
+  headers: string[];
+  dataPerColumn: Array<Array<string | number | JSX.Element>>;
+  span?: number | undefined;
+  colSpan?: number | undefined;
+}
 export type OverviewProps = LeagueInterface | TeamInterface;
 export type ScheduleProps = LeagueInterface["calendar"] | TeamInterface;
 export interface TableScheduleProps {
@@ -106,7 +199,7 @@ export interface SidemenuDataProps {
   leagues: { [key: string]: SidebarItemsProps[] };
 }
 export interface TopMenuProps {
-  title: string;
+  title?: string;
   goBack?: string;
 }
 export interface IconProps {

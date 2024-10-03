@@ -19,19 +19,31 @@
 
 @layer components {
   body {
-    @apply bg-black1 text-white font-font h-screen;
+    @apply bg-black1 text-white font-font;
   }
   h1 {
-    @apply text-xl md:text-2xl lg:text-3xl font-semibold;
+    @apply text-xl md:text-2xl lg:text-4xl font-semibold;
   }
   h2 {
-    @apply text-lg md:text-xl lg:text-2xl font-semibold;
+    @apply text-lg md:text-xl lg:text-3xl font-semibold;
   }
   h3 {
-    @apply text-base md:text-lg lg:text-xl font-semibold;
+    @apply text-lg md:text-xl lg:text-2xl font-medium;
+  }
+  h4 {
+    @apply text-base md:text-lg lg:text-xl font-medium;
+  }
+  h5 {
+    @apply text-base md:text-lg lg:text-xl;
+  }
+  p{
+    @apply text-sm md:text-base
   }
   .gradient1 {
     @apply text-transparent bg-clip-text bg-gradient-to-r from-[#9D51E1] via-[#9B63A4] to-[#B86C7D];
+  }
+  .logoSize {
+    @apply w-10 h-10 md:w-14 md:h-14 lg:w-20 lg:h-20;
   }
   ::-webkit-scrollbar {
     @apply w-[10px] h-[10px];

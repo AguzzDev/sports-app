@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { Layout } from "components/Layout";
-import { TopMenu } from "components/Menu/TopMenu";
+import { Layout } from "components/Layout/Layout";
 import { useGroups } from "context/GroupsReducer";
 import { allNations } from "data/allNations";
-import { dictionaryGroups } from "utils/dictionaryGroups";
+import { dictionaryGroups } from "utils/dict";
 
 const WorldCupPrediction = () => {
   const { dispatch, state } = useGroups();
@@ -68,19 +67,19 @@ const WorldCupPrediction = () => {
     return (
       <>
         <div className="relative col-start-2 row-start-3">
-          <h1 className="absolute bottom-3 font-bold">Cuartos</h1>
+          <h3 className="absolute bottom-3 font-bold">Cuartos</h3>
         </div>
         <div className="relative col-start-7 row-start-3">
-          <h1 className="absolute bottom-3 right-0 font-bold">Cuartos</h1>
+          <h3 className="absolute bottom-3 right-0 font-bold">Cuartos</h3>
         </div>
         <div className="relative col-start-3 row-start-9">
-          <h1 className="absolute bottom-3 font-bold">Semis</h1>
+          <h3 className="absolute bottom-3 font-bold">Semis</h3>
         </div>
         <div className="relative col-start-6 row-start-9">
-          <h1 className="absolute bottom-3 right-0 font-bold">Semis</h1>
+          <h3 className="absolute bottom-3 right-0 font-bold">Semis</h3>
         </div>
         <div className="relative col-start-4 col-span-2 row-start-7">
-          <h1 className="absolute bottom-3 font-bold">Campeon Mundial 2022</h1>
+          <h3 className="absolute bottom-3 font-bold">Campeon Mundial 2022</h3>
         </div>
       </>
     );
@@ -121,6 +120,7 @@ const WorldCupPrediction = () => {
             >
               {state[value!]?.img && (
                 <Image
+                  alt="flag"
                   src={state[value!]?.img}
                   loading="lazy"
                   height={50}
@@ -129,9 +129,9 @@ const WorldCupPrediction = () => {
                   className="transform -translate-x-1"
                 />
               )}
-              <h1 className="font-bold w-full truncate">
+              <h4 className="font-bold w-full truncate">
                 {state[value!]?.name || title}
-              </h1>
+              </h4>
             </button>
           </>
         )}
@@ -160,6 +160,7 @@ const WorldCupPrediction = () => {
           >
             {state[v!]?.img && (
               <Image
+                alt="flag"
                 src={state[v!]?.img}
                 loading="lazy"
                 height={50}
@@ -170,20 +171,18 @@ const WorldCupPrediction = () => {
                 }`}
               />
             )}
-            <h1 className="font-bold w-full truncate">
+            <h4 className="font-bold w-full truncate">
               {state[v!]?.name || v}
-            </h1>
+            </h4>
           </button>
         ))}
       </div>
     );
   };
   return (
-    <Layout title="World Cup Prediction">
-      <TopMenu title="World Cup Prediction" />
-
+    <Layout title="World Cup Prediction" menuTitle="World Cup Prediction">
       <section>
-        <h1 className="text-xl pl-5 py-2 bg-stone-500 bg-opacity-20">Grupos</h1>
+        <h1 className="text-xl pl-5 py-2 bg-stone-500 ">Grupos</h1>
 
         <div className="mx-10 my-5 grid sm:grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-10">
           {allNations?.map((nation, i) => (
@@ -197,13 +196,14 @@ const WorldCupPrediction = () => {
                 >
                   <div className="flex items-center">
                     <Image
+                      alt="flag"
                       src={img}
                       width={60}
                       height={50}
                       objectFit="contain"
                       className="-translate-x-3"
                     />
-                    <h1 className="ml-3">{name}</h1>
+                    <h3 className="ml-3">{name}</h3>
                   </div>
 
                   <div>
@@ -243,9 +243,7 @@ const WorldCupPrediction = () => {
       </section>
 
       <section className="my-10">
-        <h1 className="text-xl pl-5 py-2 bg-stone-500 bg-opacity-20">
-          Eliminatorias
-        </h1>
+        <h1 className="text-xl pl-5 py-2 bg-stone-500 ">Eliminatorias</h1>
 
         <div className="mx-5 my-5 hidden xl:grid grid-cols-8 grid-rows-21 gap-x-5 mt-5">
           <GroupElement
@@ -442,6 +440,7 @@ const WorldCupPrediction = () => {
               >
                 {state["S1"]?.img && (
                   <Image
+                    alt="flag"
                     src={state["S1"]?.img}
                     loading="lazy"
                     height={40}
@@ -450,9 +449,9 @@ const WorldCupPrediction = () => {
                     className="transform -translate-x-1"
                   />
                 )}
-                <h1 className="font-bold px-4">
+                <h4 className="font-bold px-4">
                   {state["S1"]?.name || "Final 1"}
-                </h1>
+                </h4>
               </button>
               <button
                 className="flex items-center justify-end w-full"
@@ -467,11 +466,12 @@ const WorldCupPrediction = () => {
                   })
                 }
               >
-                <h1 className="font-bold px-4">
+                <h4 className="font-bold px-4">
                   {state["S2"]?.name || "Final 2"}
-                </h1>
+                </h4>
                 {state["S2"]?.img && (
                   <Image
+                    alt="flag"
                     src={state["S2"]?.img}
                     loading="lazy"
                     height={40}
@@ -494,7 +494,7 @@ const WorldCupPrediction = () => {
 
         <div className="flex flex-col xl:hidden mx-5 my-3 space-y-2">
           <div>
-            <h1>Octavos</h1>
+            <h3>Octavos</h3>
             <div className="flex flex-col sm:flex-row justify-between space-y-5 sm:space-y-0 sm:space-x-5">
               <div className="w-full">
                 <GroupElementLaptop code="O1" value={["A1", "B2"]} />
@@ -511,7 +511,7 @@ const WorldCupPrediction = () => {
             </div>
           </div>
           <div>
-            <h1>Cuartos</h1>
+            <h3>Cuartos</h3>
             <div className="flex flex-col sm:flex-row justify-between space-y-5 sm:space-y-0 sm:space-x-5">
               <div className="w-full">
                 <GroupElementLaptop code="Q1" value={["O1", "O2"]} />
@@ -524,7 +524,7 @@ const WorldCupPrediction = () => {
             </div>
           </div>
           <div>
-            <h1>Semis</h1>
+            <h3>Semis</h3>
             <div className="flex flex-col sm:flex-row justify-between space-y-5 sm:space-y-0 sm:space-x-5">
               <div className="w-full">
                 <GroupElementLaptop code="S1" value={["Q1", "Q2"]} />
@@ -535,13 +535,13 @@ const WorldCupPrediction = () => {
             </div>
           </div>
           <div>
-            <h1>Final</h1>
+            <h3>Final</h3>
             <div>
               <GroupElementLaptop code="W" value={["S1", "S2"]} />
             </div>
           </div>
           <div>
-            <h1>Campeon Mundial 2022</h1>
+            <h3>Campeon Mundial 2022</h3>
             <div>
               <GroupElementLaptop value={["W"]} />
             </div>

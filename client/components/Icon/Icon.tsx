@@ -9,5 +9,5 @@ export const IconSM = ({ Icon, color }: IconProps) => {
 }
 
 export const IconMD = ({ Icon, color }: IconProps) => {
-  return <Icon className={`${color} w-7 h-7 sm:w-9 sm:h-9`} />
+  return <Icon className={`${color} w-5 h-5 sm:w-7 sm:h-7`} />
 }

@@ -1,10 +1,11 @@
 import { TableSquad } from "components/Table/TableSquad";
+import { ContainerOne } from "components/UI/ContainerOne";
 import { PlayerInterface } from "interface";
 
-export const Squad = ({ data }: { data: PlayerInterface[] }) => {
+export const Squad: React.FC<{ data: PlayerInterface[] }> = ({ data }) => {
   return (
-    <div className="mx-2 md:w-3/4 md:mx-auto">
+    <ContainerOne title="Plantilla" className="md:w-3/4 md:mx-auto">
       <TableSquad data={data} />
-    </div>
+    </ContainerOne>
   );
 };

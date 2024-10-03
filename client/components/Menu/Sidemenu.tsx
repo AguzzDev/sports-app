@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { IconMD } from "components/Icon";
-import { LoadingSidemenu } from "components/Loading";
+import { IconMD } from "components/Icon/Icon";
+import { LoadingSidemenu } from "components/Loading/Loading";
 import { SidebarItemsProps } from "interface";
 import { useLeague } from "context/QueryContext";
 import { SidemenuData } from "data/SidemenuData";
@@ -39,7 +39,7 @@ export const Sidemenu = () => {
       block: "start",
       inline: "start",
     });
-  }, [loading]);
+  }, [loading, router]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -56,7 +56,7 @@ export const Sidemenu = () => {
   }, [router]);
 
   return (
-    <section className="sticky inset-0 w-full xl:w-[10vw] min-h-full z-[9999] flex flex-row items-center h-full border-gray2 pt-4 px-5 bg-black1 xl:flex-col xl:h-screen xl:border-r-2 xl:px-0">
+    <section className="flex flex-row xl:flex-col items-center h-full border-gray2 pt-2 pl-5 xl:pt-4 xl:px-0 border-b-2 xl:border-r-2 bg-black1">
       {loading ? (
         <LoadingSidemenu />
       ) : (
@@ -72,7 +72,7 @@ export const Sidemenu = () => {
           {!router.pathname.includes("/game") && (
             <section
               id="sidebar"
-              className="flex flex-row w-full h-full overflow-x-auto overflow-y-hidden xl:overflow-x-hidden xl:overflow-y-scroll cursor-pointer xl:flex-col ml-5 mt-1 lg:mt-4 xl:ml-0 xl:mt-5"
+              className="flex flex-row xl:flex-col overflow-x-scroll xl:overflow-y-scroll xl:overflow-x-hidden cursor-pointer ml-5 xl:ml-0 pt-2"
             >
               {data?.map(({ img, name }: SidebarItemsProps, i: number) => {
                 return (
@@ -80,27 +80,24 @@ export const Sidemenu = () => {
                     <button
                       data-index={i}
                       onClick={() => scrollMenu(i, name)}
-                      className={`relative mx-3 xl:mx-0 my-3 flex lg:flex-col hover:opacity-100 -translate-y-2 ${
+                      className={`relative flex lg:flex-col xl:my-2 mx-3 xl:mx-0 hover:opacity-100 -translate-y-2 ${
                         name === router.query.title || router.pathname === "/"
                           ? "opacity-100"
-                          : "opacity-40"
+                          : "opacity-60"
                       }`}
                     >
                       <div className="flex lg:flex-col items-center w-full h-full">
-                        <Image
-                          key={name}
-                          src={img}
-                          alt={name}
-                          width={80}
-                          height={80}
-                          objectFit="contain"
-                        />
+                        <div className="relative logoSize">
+                          <Image
+                            key={name}
+                            src={img}
+                            alt="league-logo"
+                            objectFit="contain"
+                            layout="fill"
+                          />
+                        </div>
 
-                        <p
-                          className={`${
-                            name === router.query.title && "gradient1"
-                          } text-left w-32 lg:text-center text-sm font-extrabold`}
-                        >
+                        <p className="text-sm text-left w-28 md:w-32 lg:text-center font-extrabold ml-2 md:ml-0">
                           {name}
                         </p>
                       </div>
