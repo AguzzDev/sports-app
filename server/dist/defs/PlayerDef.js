@@ -1,6 +1,8 @@
-import { gql } from "apollo-server-express";
-
-export const playerDef = gql`
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.playerDef = void 0;
+const apollo_server_express_1 = require("apollo-server-express");
+exports.playerDef = (0, apollo_server_express_1.gql) `
   type Player {
     name: String
     number: String

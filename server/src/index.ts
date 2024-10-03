@@ -9,7 +9,16 @@ import { PlayerResolver } from "./resolvers/PlayerResolver";
 import { playerDef } from "./defs/PlayerDef";
 import { TeamDef } from "./defs/TeamDefs";
 import { TeamResolver } from "./resolvers/TeamsResolver";
+import { MatchResolver } from "./resolvers/MatchResolver";
+import { MatchDef } from "./defs/MatchDef";
+import scrape from "./modules/scraping";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { createServer } from "http";
+import { WebSocketServer } from "ws";
+import { useServer } from "graphql-ws/lib/use/ws";
+import { PubSub } from "graphql-subscriptions";
 
+export const pubsub = new PubSub();
 
 (async () => {
   dotenv.config();
@@ -22,6 +31,7 @@ import { TeamResolver } from "./resolvers/TeamsResolver";
   );
 
   app.get("/", (_, res) => res.send("API ON"));
+
   mongoose
     .connect(process.env.MONGO_URL!)
     .then(() => console.log("DB Connection Successfull!"))
@@ -29,20 +39,48 @@ import { TeamResolver } from "./resolvers/TeamsResolver";
       console.log(err);
     });
 
-  const apolloServer = new ApolloServer({
-    typeDefs: [LeagueDef, playerDef, TeamDef],
-    resolvers: [LeagueResolver, PlayerResolver, TeamResolver],
+  const typeDefs = [LeagueDef, playerDef, TeamDef, MatchDef];
+  const resolvers = [
+    LeagueResolver,
+    PlayerResolver,
+    TeamResolver,
+    MatchResolver,
+  ];
+  const schema = makeExecutableSchema({ typeDefs, resolvers });
+  const httpServer = createServer(app);
+  const wsServer = new WebSocketServer({
+    server: httpServer,
+    path: "/graphql",
+  });
+  const serverCleanup = useServer({ schema }, wsServer);
+
+  const server = new ApolloServer({
+    schema,
     csrfPrevention: true,
+    plugins: [
+      {
+        async serverWillStart() {
+          return {
+            async drainServer() {
+              serverCleanup.dispose();
+            },
+          };
+        },
+      },
+    ],
   });
-  await apolloServer.start();
+  await server.start();
 
-  apolloServer.applyMiddleware({
+  server.applyMiddleware({
     app,
+    cors: { credentials: true, origin: process.env.CORS_ORIGIN },
   });
 
-  const PORT = process.env.PORT
+  const PORT = process.env.PORT;
 
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     console.log(`Server on ${PORT}`);
+
+    scrape();
   });
 })();
