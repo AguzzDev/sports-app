@@ -9,13 +9,16 @@ import { sleep } from "../../utils/sleep";
 async function dailyMatchesScrap({ page, date }) {
   while (true) {
     const matches = await task({ page, date });
+    console.log("scraping");
 
     const livematches = matches.filter(({ status }) => status == "live");
     const nextmatches = matches.filter(({ status }) => status == "next");
 
     if (livematches.length > 0) {
+      console.log("live")
       await sleep(2.5 * 60 * 1000);
     } else if (nextmatches.length > 0) {
+      console.log(`next match in ${sleepTime * 60 * 1000}`);
       const nextMatch = nextmatches[0].result;
 
       const [nextMatchHour, nextMatchMinute] = nextmatches[0].result
@@ -32,6 +35,7 @@ async function dailyMatchesScrap({ page, date }) {
       await sleep(sleepTime * 60 * 1000);
     } else {
       const time = getTimeUntilMidnight();
+      console.log(`sleep ${time}`)
 
       if (time > 0) {
         await sleep(time);
