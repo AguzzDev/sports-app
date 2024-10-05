@@ -11,17 +11,14 @@ dotenv.config();
 
 const scrapper = async () => {
   cron.schedule(
-    "30 1 * * *",
+    "40 1 * * *",
     async () => {
       try {
         const today = toZonedTime(new Date(), "America/Argentina/Buenos_Aires");
         const browser = await puppeteer.launch({
           headless: true,
           timeout: 0,
-          executablePath: path.join(
-            __dirname,
-            "chrome/linux-129.0.6668.58/chrome-linux64/chrome"
-          ),
+          executablePath: "/workspace/server/chrome/linux-129.0.6668.58/chrome-linux64/chrome",
         });
 
         const page = await browser.newPage();
