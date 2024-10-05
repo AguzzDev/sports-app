@@ -10,7 +10,7 @@ dotenv.config();
 
 const scrapper = async () => {
   cron.schedule(
-    "0 1 * * *",
+    "15 1 * * *",
     async () => {
       try {
         console.log("scraping");
