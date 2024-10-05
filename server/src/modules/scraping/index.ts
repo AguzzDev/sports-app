@@ -19,7 +19,7 @@ const scrapper = async () => {
           headless: true,
           timeout: 0,
           executablePath:
-            "/workspace/server/chrome/linux-129.0.6668.58/chrome-linux64/chrome",
+            "chrome/linux-129.0.6668.58/chrome-linux64/chrome",
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
