@@ -124,11 +124,7 @@ async function task({ page, date }) {
       });
     });
 
-    return data.sort((a, b) => {
-      const timeA = new Date(`1970-01-01T${a.result}:00`).getTime();
-      const timeB = new Date(`1970-01-01T${b.result}:00`).getTime();
-      return timeA - timeB;
-    });
+    return data;
   });
 
   const updateMatchStatistics = async () => {
@@ -287,7 +283,7 @@ async function task({ page, date }) {
     }
     if (res.status == "finished") continue;
     if (res.status == "next") {
-      await Match.updateOne({ eventId: match.eventId }, { $set: { match } });
+      await Match.updateOne({ eventId: match.eventId }, match);
       continue;
     }
 

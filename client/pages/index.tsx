@@ -151,7 +151,18 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (loading || error) return;
 
-    const matches = subData?.getMatches || data?.getMatches;
+    let matches: MatchInterface[] = subData?.getMatches || data?.getMatches;
+
+    const nextMatches = matches
+      .filter(({ status }) => status === "next")
+      .sort((a, b) => {
+        const timeA = new Date(`1970-01-01T${a.result}:00`).getTime();
+        const timeB = new Date(`1970-01-01T${b.result}:00`).getTime();
+        return timeA - timeB;
+      });
+    const filterNextMatches = matches.filter(({ status }) => status != "next");
+
+    matches = [...filterNextMatches, ...nextMatches];
 
     const StatusKeysType = Array.from(
       new Set(matches.map(({ status }: { status: string }) => status))
