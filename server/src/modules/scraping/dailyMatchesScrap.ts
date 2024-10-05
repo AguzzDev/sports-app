@@ -13,8 +13,6 @@ async function dailyMatchesScrap({ page, date }) {
     const liveMatches = matches.filter(({ status }) => status == "live");
     const nextMatches = matches.filter(({ status }) => status == "next");
 
-    console.log("scraping", { liveMatches, nextMatches });
-    
     if (liveMatches.length > 0) {
       await sleep(2.5 * 60 * 1000);
     } else if (nextMatches.length > 0) {
@@ -287,7 +285,11 @@ async function task({ page, date }) {
       newMatch.save();
       continue;
     }
-    if (res.status != "live") continue;
+    if (res.status == "finished") continue;
+    if (res.status == "next") {
+      await Match.updateOne({ eventId: match.eventId }, { $set: { match } });
+      continue;
+    }
 
     let retryCount = 0;
     const maxRetries = 3;
