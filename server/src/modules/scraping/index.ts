@@ -11,7 +11,7 @@ dotenv.config();
 
 const scrapper = async () => {
   cron.schedule(
-    "50 11 * * *",
+    "46 13 * * *",
     async () => {
       try {
         const today = toZonedTime(new Date(), "America/Argentina/Buenos_Aires");
