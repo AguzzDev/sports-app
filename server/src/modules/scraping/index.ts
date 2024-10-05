@@ -10,7 +10,7 @@ dotenv.config();
 
 const scrapper = async () => {
   cron.schedule(
-    "45 0 * * *",
+    "0 1 * * *",
     async () => {
       try {
         console.log("scraping");
@@ -18,6 +18,7 @@ const scrapper = async () => {
         const browser = await puppeteer.launch({
           headless: true,
           timeout: 0,
+        
         });
 
         const page = await browser.newPage();
