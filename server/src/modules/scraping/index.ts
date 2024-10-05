@@ -5,20 +5,23 @@ import dailyMatchesScrap from "./dailyMatchesScrap";
 import allLeagueScrap from "./allLeagueScrap";
 import Match from "../../models/Match";
 import cron from "node-cron";
+import path from "path";
 
 dotenv.config();
 
 const scrapper = async () => {
   cron.schedule(
-    "15 1 * * *",
+    "30 1 * * *",
     async () => {
       try {
-        console.log("scraping");
         const today = toZonedTime(new Date(), "America/Argentina/Buenos_Aires");
         const browser = await puppeteer.launch({
           headless: true,
           timeout: 0,
-        
+          executablePath: path.join(
+            __dirname,
+            "chrome/linux-129.0.6668.58/chrome-linux64/chrome"
+          ),
         });
 
         const page = await browser.newPage();
