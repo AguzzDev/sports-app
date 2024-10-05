@@ -10,9 +10,10 @@ dotenv.config();
 
 const scrapper = async () => {
   cron.schedule(
-    "40 0 * * *",
+    "45 0 * * *",
     async () => {
       try {
+        console.log("scraping");
         const today = toZonedTime(new Date(), "America/Argentina/Buenos_Aires");
         const browser = await puppeteer.launch({
           headless: true,
