@@ -21,10 +21,11 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /server
 COPY . .
 
+RUN rm -rf /app/.cache/puppeteer && rm -rf /app/server/chrome/linux-129.0.6668.58
 RUN npm install
-
+RUN npx @puppeteer/browsers install chrome@129.0.6668.58
 RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "prod"]
