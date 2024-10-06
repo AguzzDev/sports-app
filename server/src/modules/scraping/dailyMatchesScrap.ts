@@ -2,8 +2,6 @@
 
 import { pubsub } from "../..";
 import Match from "../../models/Match";
-import { convertTime } from "../../utils/convertTime";
-import { getTimeUntilMidnight } from "../../utils/getTimeUntilMidnight";
 import { sleep } from "../../utils/sleep";
 
 async function dailyMatchesScrap({ page, date }) {
@@ -28,16 +26,9 @@ async function dailyMatchesScrap({ page, date }) {
         0
       );
       const sleepTime = Math.max((nextMatchTime - Date.now()) / (1000 * 60), 0);
-
-      await sleep(sleepTime * 60 * 1000);
+      await sleep(sleepTime * 60 * 1000 + fiveMinutes);
     } else {
-      const time = getTimeUntilMidnight();
-
-      if (time > 0) {
-        await sleep(time);
-      } else {
-        return;
-      }
+      break;
     }
   }
 }
