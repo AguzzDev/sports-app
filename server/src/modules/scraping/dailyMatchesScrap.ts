@@ -6,14 +6,12 @@ import { sleep } from "../../utils/sleep";
 
 async function dailyMatchesScrap({ page, date }) {
   while (true) {
-    console.log("Scraping")
     const matches = await task({ page, date });
 
     const liveMatches = matches.filter(({ status }) => status == "live");
     const nextMatches = matches.filter(({ status }) => status == "next");
 
     if (liveMatches.length > 0) {
-      console.log("Hay partidos en vivo. Esperando 2.5 minutos...");
       await sleep(2.5 * 60 * 1000);
     } else if (nextMatches.length > 0) {
       const nextMatch = nextMatches[0].result;
@@ -28,7 +26,6 @@ async function dailyMatchesScrap({ page, date }) {
         0
       );
       const sleepTime = Math.max((nextMatchTime - Date.now()) / (1000 * 60), 0);
-      console.log(`Siguiente partido en ${sleepTime.toFixed(2)} minutos.`);
       await sleep(sleepTime * 60 * 1000);
     } else {
       break;
@@ -37,10 +34,10 @@ async function dailyMatchesScrap({ page, date }) {
 }
 
 async function task({ page, date }) {
-  const navigateToPage = async (url, retries = 3, delay = 3000) => {
+  const navigateToPage = async (url, retries = 3, delay = 50000) => {
     for (let i = 0; i < retries; i++) {
       try {
-        await page.goto(url, { waitUntil: "networkidle2", timeout: 10000 });
+        await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
         return true;
       } catch (error) {
         if (i < retries - 1) await sleep(delay);
