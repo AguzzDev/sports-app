@@ -10,12 +10,12 @@ dotenv.config();
 
 const scrapper = async () => {
   cron.schedule(
-    "1 0 * * *",
+    "30 0 * * *",
     async () => {
       try {
         const today = toZonedTime(new Date(), "America/Argentina/Buenos_Aires");
         const browser = await puppeteer.launch({
-          headless: false,
+          headless: true,
           timeout: 0,
           executablePath: "chrome/linux-129.0.6668.58/chrome-linux64/chrome",
           args: [
@@ -39,7 +39,6 @@ const scrapper = async () => {
         });
 
         await dailyMatchesScrap({ page, date });
-
         await browser.close();
       } catch (error) {
         console.error("Error durante la tarea programada:", error);
@@ -49,11 +48,11 @@ const scrapper = async () => {
   );
 
   cron.schedule(
-    "1 0 * * *",
+    "30 0 * * *",
     async () => {
       try {
         const browser = await puppeteer.launch({
-          headless: false,
+          headless: true,
           timeout: 0,
           executablePath: "chrome/linux-129.0.6668.58/chrome-linux64/chrome",
           args: [
