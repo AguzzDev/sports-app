@@ -2,6 +2,7 @@
 
 import { pubsub } from "../..";
 import Match from "../../models/Match";
+import { getTimeUntilMidnight } from "../../utils/getTimeUntilMidnight";
 import { sleep } from "../../utils/sleep";
 
 async function dailyMatchesScrap({ page, date }) {
