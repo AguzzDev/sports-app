@@ -191,14 +191,11 @@ const Home: NextPage = () => {
           ))}
         </>
       ) : (
-        <section className="grid grid-cols-2 gap-5">
-          <div className="w-full bg-opacity-50 rounded-md h-60 lg:h-64 bg-gray2"></div>
-          <div className="w-full bg-opacity-50 rounded-md h-60 lg:h-64 bg-gray2"></div>
-          <div className="w-full col-span-2 bg-opacity-50 rounded-md h-60 lg:h-64 bg-gray2"></div>
-        </section>
+        <div className="h-[85%]">
+          <h2>Partidos en vivo</h2>
+          <p>Hoy no hay partidos</p>
+        </div>
       )}
-
-      <Footer />
     </Layout>
   );
 };

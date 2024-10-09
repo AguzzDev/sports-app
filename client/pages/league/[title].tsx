@@ -29,7 +29,7 @@ const League = () => {
           <></>
         ) : (
           <>
-            <section className="mx-3 sm:mx-7 my-5 sm:my-5">
+            <section>
               {hashPath === "Overview" ? (
                 <Overview data={data!.getLeague} />
               ) : hashPath === "Calendar" ? (

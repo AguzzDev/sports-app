@@ -38,8 +38,8 @@ export const Overview: React.FC<{ data: OverviewProps }> = ({ data }) => {
   const teamData = !isLeagueInterface(data) ? data : undefined;
 
   return (
-    <section className="flex flex-col justify-between space-y-5 xl:space-y-0 lg:flex-row">
-      <ContainerOne title="Informacion general" className="h-max px-10">
+    <section className="flex flex-col justify-between space-y-5 lg:space-y-0 lg:flex-row">
+      <ContainerOne title="Informacion general" className="h-max">
         {leagueRoute ? (
           <LeagueInfo data={leagueData!} />
         ) : (

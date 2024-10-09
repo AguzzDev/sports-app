@@ -25,7 +25,7 @@ const Team = () => {
         {loading ? (
           <></>
         ) : (
-          <section className="mx-3 my-5 sm:mx-7 sm:my-5">
+          <section>
             {hashPath === "Overview" ? (
               <Overview data={data!.getTeam} />
             ) : hashPath === "Calendar" ? (

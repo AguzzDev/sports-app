@@ -10,11 +10,11 @@ export const TableSquad = ({ data }: { data: TeamInterface["squad"] }) => {
       dataPerColumn={[
         extractColumn(data, "number"),
         data.map(({ img, name }) => (
-          <div key={name} className="flex items-center space-x-2">
-            <div className="relative h-8 w-8">
-              <Image src={img} alt={`Player ${name}`} />
+          <div key={name} className="flex items-center sm:space-x-2">
+            <div className="hidden sm:block relative w-10 h-10 rounded-full overflow-hidden border-2 border-border1">
+              <Image src={img} alt={`Player ${name}`} layout="fill" />
             </div>
-            <span>{name}</span>
+            <span className="text-left">{name}</span>
           </div>
         )),
         extractColumn(data, "position"),

@@ -5,13 +5,16 @@ import { extractColumn } from "utils/extractColumn";
 
 const Item = ({ text, img }: { text: string; img: string }) => (
   <div className="flex items-center space-x-2">
-    <Image
-      src={img}
-      width={15}
-      height={20}
-      alt="info_img"
-      objectFit="contain"
-    />
+    <div className="hidden sm:block">
+      <Image
+        src={img}
+        width={15}
+        height={20}
+        alt="info_img"
+        objectFit="contain"
+      />
+    </div>
+
     <p className="my-auto mx-3 truncate sm:mr-5">{text}</p>
   </div>
 );

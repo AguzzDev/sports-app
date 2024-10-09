@@ -31,12 +31,25 @@ export const Table = ({
           }}
         >
           {headers.map((text, index) => (
-            <h3
-              className={checkSpanCustom ? spanColStyle(index) : ""}
-              key={index}
-            >
-              {text}
-            </h3>
+            <>
+              <h3
+                className={`hidden sm:block ${
+                  checkSpanCustom ? spanColStyle(index) : ""
+                }`}
+                key={index}
+              >
+                {text}
+              </h3>
+
+              <h3
+                className={`block sm:hidden ${
+                  checkSpanCustom ? spanColStyle(index) : ""
+                }`}
+                key={index}
+              >
+                {text.substring(0, 1)}
+              </h3>
+            </>
           ))}
         </div>
 
@@ -49,12 +62,12 @@ export const Table = ({
             }}
           >
             {dataPerColumn.map((col, colIndex) => (
-              <div
+              <p
                 className={checkSpanCustom ? spanColStyle(colIndex) : ""}
                 key={colIndex}
               >
                 {col[rowIndex]}
-              </div>
+              </p>
             ))}
           </div>
         ))}

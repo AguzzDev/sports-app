@@ -18,15 +18,15 @@ export const TopMenu = ({ title, goBack }: TopMenuProps) => {
     return (
       <Link href={`#${title}`}>
         <button className="relative flex flex-col mx-5">
-          <h3
-            className={`${
+          <h4
+            className={`font-bold ${
               title === hashPath ? "gradient1" : "text-gray1 hover:gradient1"
             }`}
           >
             {title}
-          </h3>
+          </h4>
 
-          <div className="absolute mt-6 md:mt-7 w-full h-full">
+          <div className="absolute mt-8 lg:mt-[35px] xl:mt-9 w-full h-3/4">
             {title === hashPath && (
               <Image
                 src="/svg/Arrow.svg"
@@ -43,18 +43,17 @@ export const TopMenu = ({ title, goBack }: TopMenuProps) => {
   };
   return (
     <section className="bg-black1 flex flex-col md:flex-row py-5 border-b-2 border-gray2">
-      {!router.pathname.includes("/game") && (
-        <div className="flex items-center w-full md:w-2/6 pl-3 space-x-2 md:pl-5 mb-2 md:mb-0">
-          {goBack && (
-            <Link href={goBack}>
-              <button>
-                <IconMD Icon={ChevronLeftIcon} />
-              </button>
-            </Link>
-          )}
-          <h2 className="truncate">{title}</h2>
+      <div className="flex items-center justify-center md:justify-start w-full md:w-2/6 space-x-2 md:pl-5 mb-2 md:mb-0">
+        <div className="hidden md:flex">
+          <Link href={goBack ? goBack : "/"}>
+            <button>
+              <IconMD Icon={ChevronLeftIcon} />
+            </button>
+          </Link>
         </div>
-      )}
+
+        <h2 className="truncate">{title}</h2>
+      </div>
 
       <div className="flex justify-center items-center w-full">
         {router.pathname.includes("/league") ? (
@@ -96,9 +95,7 @@ export const TopMenu = ({ title, goBack }: TopMenuProps) => {
         )}
       </div>
 
-      {!router.pathname.includes("/game") && (
-        <div className="w-2/6 xl:w-3/6 px-5"></div>
-      )}
+      <div className="w-2/6 xl:w-3/6 px-5"></div>
     </section>
   );
 };

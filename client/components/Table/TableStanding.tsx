@@ -13,14 +13,17 @@ export const TableStanding = ({ data }: { data: LeagueInterface["table"] }) => {
         extractColumn(data, "position"),
         data.map(({ team, img }) => (
           <div key={team} className="flex col-span-5">
-            <Image
-              src={img}
-              alt={`${img}-img`}
-              width={15}
-              height={20}
-              objectFit="contain"
-            />
-            <p className="pl-5">{team}</p>
+            <div className="hidden sm:block">
+              <Image
+                src={img}
+                alt={`${img}-img`}
+                width={15}
+                height={20}
+                objectFit="contain"
+              />
+            </div>
+
+            <p className="text-left sm:pl-5">{team}</p>
           </div>
         )),
         extractColumn(data, "games"),
