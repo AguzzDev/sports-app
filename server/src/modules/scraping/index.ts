@@ -5,50 +5,48 @@ import dailyMatchesScrap from "./dailyMatchesScrap";
 import allLeagueScrap from "./allLeagueScrap";
 import Match from "../../models/Match";
 import cron from "node-cron";
+import { sleep } from "../../utils/sleep";
 
 dotenv.config();
 
 const scrapper = async () => {
-  cron.schedule(
-    "30 0 * * *",
-    async () => {
-      try {
-        const today = toZonedTime(new Date(), "America/Argentina/Buenos_Aires");
-        const browser = await puppeteer.launch({
-          headless: true,
-          timeout: 0,
-          executablePath: "chrome/linux-129.0.6668.58/chrome-linux64/chrome",
-          args: [
-            "--no-sandbox",
-            "--disable-setuid-sandbox",
-            "--disable-dev-shm-usage",
-            "--disable-accelerated-2d-canvas",
-            "--no-zygote",
-            "--single-process",
-          ],
-        });
+  cron.schedule("1 0 * * *", async () => {
+    try {
+      const today = toZonedTime(new Date(), "America/Argentina/Buenos_Aires");
 
-        const page = await browser.newPage();
+      const browser = await puppeteer.launch({
+        headless: true,
+        timeout: 0,
+        executablePath: "chrome/linux-129.0.6668.58/chrome-linux64/chrome",
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-accelerated-2d-canvas",
+          "--no-zygote",
+          "--single-process",
+        ],
+      });
 
-        const date = format(today, "yyyy-MM-dd");
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 2);
+      const page = await browser.newPage();
 
-        await Match.deleteMany({
-          createdAt: { $lt: yesterday },
-        });
+      const date = format(today, "yyyy-MM-dd");
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 2);
 
-        await dailyMatchesScrap({ page, date });
-        await browser.close();
-      } catch (error) {
-        console.error("Error durante la tarea programada:", error);
-      }
-    },
-    { timezone: "America/Argentina/Buenos_Aires" }
-  );
+      await Match.deleteMany({
+        createdAt: { $lt: yesterday },
+      });
+
+      await dailyMatchesScrap({ page, date });
+      await browser.close();
+    } catch (error) {
+      console.error("Error durante la tarea programada:", error);
+    }
+  });
 
   cron.schedule(
-    "30 0 * * *",
+    "2 0 * * *",
     async () => {
       try {
         const browser = await puppeteer.launch({
@@ -67,6 +65,8 @@ const scrapper = async () => {
 
         const page = await browser.newPage();
 
+        await sleep(60000)
+        
         await allLeagueScrap({ page });
         await browser.close();
       } catch (error) {

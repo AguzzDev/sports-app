@@ -3,6 +3,10 @@
 import { pubsub } from "../..";
 import Match from "../../models/Match";
 import { getTimeUntilMidnight } from "../../utils/getTimeUntilMidnight";
+import {
+  leaguesToScrap,
+  updateLeaguesToScrap,
+} from "../../utils/leaguesToScrap";
 import { sleep } from "../../utils/sleep";
 
 async function dailyMatchesScrap({ page, date }) {
@@ -50,11 +54,16 @@ async function task({ page, date }) {
   const isPageLoaded = await navigateToPage(
     `https://www.transfermarkt.com.ar/ticker/index/live?datum=${date}`
   );
-  if (!isPageLoaded) return [];
+
+  if (!isPageLoaded) {
+    await sleep(5 * 60 * 1000);
+    return task({ page, date });
+  }
 
   const matches = await page.evaluate(() => {
     let data = [];
     let leagueAndPosition = [];
+    let leaguesToScrap = [];
 
     const allLeaguesDict = {
       EL: "EL",
@@ -69,6 +78,11 @@ async function task({ page, date }) {
       L1: "L1",
       ARCA: "ARCA",
       AR1N: "AR1N",
+      WMQ4: "WMQ4",
+      UNLA: "UNLA",
+      UNLB: "UNLB",
+      UNLC: "UNLC",
+      UNLD: "UNLD",
     };
 
     document
@@ -76,9 +90,10 @@ async function task({ page, date }) {
       .forEach((item, i) => {
         const title = item.querySelector("h2 a").textContent;
         const league_code = item.querySelector("h2 a").href.split("/").pop();
-        exist = allLeaguesDict[league_code];
+        const exist = allLeaguesDict[league_code];
 
         if (exist) {
+          leaguesToScrap.push(league_code);
           leagueAndPosition.push({ pos: i, title: title });
         }
       });
@@ -128,8 +143,10 @@ async function task({ page, date }) {
       });
     });
 
-    return data;
+    return { data: data, leaguesToScrap };
   });
+
+  updateLeaguesToScrap(matches.leaguesToScrap);
 
   const updateMatchStatistics = async () => {
     return await page.evaluate(() => {
@@ -294,7 +311,7 @@ async function task({ page, date }) {
     });
   };
 
-  for (const match of matches) {
+  for (const match of matches.data) {
     const res = await Match.findOne({ eventId: match.eventId });
     if (!res) {
       const newMatch = new Match(match);
@@ -310,7 +327,10 @@ async function task({ page, date }) {
     const isPageLoaded = await navigateToPage(
       `https://www.transfermarkt.com.ar/ticker/begegnung/live/${res.eventId}`
     );
-    if (!isPageLoaded) return [];
+    if (!isPageLoaded) {
+      await sleep(5 * 60 * 1000);
+      return task({ page, date });
+    }
 
     const checkExistLineup = Object.keys(res.lineup).length > 0;
     const statistics = await updateMatchStatistics();
@@ -330,6 +350,6 @@ async function task({ page, date }) {
   }
 
   pubsub.publish("GET_MATCHES", { getMatches: await Match.find({}) });
-  return matches;
+  return matches.data;
 }
 export default dailyMatchesScrap;
