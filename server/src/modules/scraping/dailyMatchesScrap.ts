@@ -137,7 +137,7 @@ async function task({ page, date }) {
       });
     });
 
-    return { data: data, leaguesToScrap };
+    return data;
   });
 
   const updateMatchStatistics = async () => {
@@ -303,7 +303,7 @@ async function task({ page, date }) {
     });
   };
 
-  for (const match of matches.data) {
+  for (const match of matches) {
     const res = await Match.findOne({ eventId: match.eventId });
     if (!res) {
       const newMatch = new Match(match);
