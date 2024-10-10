@@ -8,9 +8,14 @@ import { sleep } from "../../utils/sleep";
 async function dailyMatchesScrap({ page, date }) {
   while (true) {
     const matches = await task({ page, date });
-
     const liveMatches = matches.filter(({ status }) => status == "live");
-    const nextMatches = matches.filter(({ status }) => status == "next");
+    const nextMatches = matches
+      .filter(({ status }) => status == "next")
+      .sort((a, b) => {
+        const timeA = new Date(`1970-01-01T${a.result}:00`).getTime();
+        const timeB = new Date(`1970-01-01T${b.result}:00`).getTime();
+        return timeA - timeB;
+      });
 
     if (liveMatches.length > 0) {
       await sleep(2.5 * 60 * 1000);
@@ -27,7 +32,7 @@ async function dailyMatchesScrap({ page, date }) {
         0
       );
       const sleepTime = Math.max((nextMatchTime - Date.now()) / (1000 * 60), 0);
-      await sleep(sleepTime * 60 * 1000);
+      await sleep(sleepTime);
     } else {
       break;
     }
@@ -342,6 +347,6 @@ async function task({ page, date }) {
   }
 
   pubsub.publish("GET_MATCHES", { getMatches: await Match.find({}) });
-  return matches.data;
+  return matches;
 }
 export default dailyMatchesScrap;
