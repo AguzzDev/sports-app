@@ -31,7 +31,8 @@ async function dailyMatchesScrap({ page, date }) {
         0,
         0
       );
-      const sleepTime = Math.max((nextMatchTime - Date.now()) / (1000 * 60), 0);
+      const sleepTime = Math.max((nextMatchTime - Date.now()) / 1000, 0);
+
       await sleep(sleepTime);
     } else {
       break;
