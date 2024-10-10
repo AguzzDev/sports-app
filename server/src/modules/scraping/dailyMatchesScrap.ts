@@ -3,10 +3,6 @@
 import { pubsub } from "../..";
 import Match from "../../models/Match";
 import { getTimeUntilMidnight } from "../../utils/getTimeUntilMidnight";
-import {
-  leaguesToScrap,
-  updateLeaguesToScrap,
-} from "../../utils/leaguesToScrap";
 import { sleep } from "../../utils/sleep";
 
 async function dailyMatchesScrap({ page, date }) {
@@ -63,7 +59,6 @@ async function task({ page, date }) {
   const matches = await page.evaluate(() => {
     let data = [];
     let leagueAndPosition = [];
-    let leaguesToScrap = [];
 
     const allLeaguesDict = {
       EL: "EL",
@@ -93,7 +88,6 @@ async function task({ page, date }) {
         const exist = allLeaguesDict[league_code];
 
         if (exist) {
-          leaguesToScrap.push(league_code);
           leagueAndPosition.push({ pos: i, title: title });
         }
       });
@@ -145,8 +139,6 @@ async function task({ page, date }) {
 
     return { data: data, leaguesToScrap };
   });
-
-  updateLeaguesToScrap(matches.leaguesToScrap);
 
   const updateMatchStatistics = async () => {
     return await page.evaluate(() => {
